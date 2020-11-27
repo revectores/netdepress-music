@@ -14,25 +14,26 @@ This project aims to analyse the factors that influence the emotion of comments 
 
 (1) Table `music`
 
-| Column Name |   Type    |                Description                 |
-| :---------: | :-------: | :----------------------------------------: |
-|     id      |    int    |                                            |
-|    name     |    str    |                                            |
-|    types    | list[str] |                type labels                 |
-|    words    |    str    | words of song, sentences are split by `\n` |
-|   emotion   |  double   |  emotion value of the words of song (0-1)  |
+| Column Name |   Type    |                 Description                  |
+| :---------: | :-------: | :------------------------------------------: |
+|     id      |    int    |                                              |
+|    name     |    str    |                                              |
+|    types    | list[str] |                 type labels                  |
+|    words    |    str    |  words of song, sentences are split by `\n`  |
+|   emotion   |  double   | emotion value of the words of song in [0, 1] |
 
 (2) Table `comment`
 
-| Column Name |  Type  |            Description             |
-| :---------: | :----: | :--------------------------------: |
-|     id      |  int   |                                    |
-|  music_id   |  int   |                                    |
-|   user_id   |  int   |                                    |
-|   content   |  str   |                                    |
-|   is_hot    |  bool  |                                    |
-| liked_count |  int   |                                    |
-|   emotion   | double | emotion value of the comment (0-1) |
+| Column Name |  Type  |              Description               |
+| :---------: | :----: | :------------------------------------: |
+|     id      |  int   |                                        |
+|  music_id   |  int   |                                        |
+|   user_id   |  int   |                                        |
+|    time     |  int   |            timestamp in UTC            |
+|   content   |  str   |                                        |
+|   is_hot    |  bool  |                                        |
+| liked_count |  int   |                                        |
+|   emotion   | double | emotion value of the comment in [0, 1] |
 
 
 

@@ -30,13 +30,14 @@ def read_comments(comments, music_id, is_hot=False):
     if not Path(comments_csv_path).exists():
         with open(comments_csv_path, 'w') as csv_file:
             writer = csv.writer(csv_file, delimiter=',')
-            writer.writerow(['id', 'music_id', 'user_id', 'content', 'is_hot', 'liked_count', 'emotion'])
+            writer.writerow(['id', 'music_id', 'user_id', 'time', 'content', 'is_hot', 'liked_count', 'emotion'])
 
     for comment in comments:
         new_comment = {
             'id':           comment['commentId'],
             'music_id':     music_id,
             'user_id':      comment['user']['userId'],
+            'time':         comment['time'],
             'content':      comment['content'],
             'is_hot':       is_hot,
             'liked_count':  comment['likedCount'],
