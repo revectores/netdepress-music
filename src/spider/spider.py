@@ -14,7 +14,7 @@ headers = {
 
 
 def get_params(page_num, count):
-    page_num = (page_num - 1) * 20
+    page_num = (page_num - 1) * 100
 
     first_param = {
         "rid":          "R_SO_4_418603077",
@@ -47,17 +47,13 @@ def get_encSecKey():
     return encSrcKey
 
 
-def get_comments(music_id, review_count):
+def get_comments(music_id, page_num):
     music_path = Path(comments_root) / str(music_id)
     music_path.mkdir(parents=True, exist_ok=True)
 
-    page_num = review_count // 100
     count = 100
-    if review_count % 100 != 0:
-        page_num += 1
-    for page_index in range(1, page_num+1):
-        if page_index == page_num:
-            count = review_count % 100
+    # for page_index in range(page_num, 0, -1):b
+    for page_index in range(1, page_num + 1):
         data = {
             'params': get_params(page_index, count),
             'encSecKey': get_encSecKey()
@@ -69,5 +65,5 @@ def get_comments(music_id, review_count):
 
 
 if __name__=='__main__':
-    get_comments(music_id=1497799734, review_count=1000)
+    get_comments(music_id=36229053, page_num=10)
 
