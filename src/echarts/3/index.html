@@ -1,0 +1,125 @@
+<!DOCTYPE html> 
+<html style='height: 100%'>    
+<head>        
+    <meta charset='utf-8'>    
+</head>    
+<body style='height: 100%; margin: 0'>        
+    <div id='container' style='height: 100%'></div>        
+    <script type='text/javascript' src='echarts.min.js'></script>        
+    <script type='text/javascript' src='echarts-gl.min.js'></script>        
+    <script type='text/javascript' src='ecStat.min.js'></script>        
+    <script type='text/javascript' src='dataTool.min.js'></script> 
+    <script src="d3.v3.min.js"></script>
+    <script type="text/javascript">
+d3.csv("comments.csv",function(data){
+	var emotion = [0,0];
+    var arg=[0,0];
+    var sum=[0,0];
+    var len=[0,0];
+    var average=0;
+    var total=0;
+    var length=0;
+	for (var i = 0; i < data.length; i++) {
+		if(data[i]["music_id"] == data[0]["music_id"]){
+            len[0]++;
+            sum[0]+=parseFloat(data[i]["emotion"]);
+        }
+		else{
+            len[1]++;
+            sum[1]+=parseFloat(data[i]["emotion"]);
+        }
+	}
+    for (var i = 0; i < 2; i++) {
+        arg[i] = sum[i] / len[i];
+        total+=sum[i];
+        length+=len[i];
+    }
+    average = total / length;
+    var d = [0,0];
+    d[0] = average;
+    d[1] = average;
+    var a=[0];
+    a[0]=arg[0];
+    var b=[0];
+    b[0]=arg[1];
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: '评论平均情绪条形图'
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            crossStyle: {
+                color: '#999'
+            }
+        }
+    },
+    toolbox: {
+        feature: {
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data: ['music1', 'music2', '平均情绪']
+    },
+    xAxis: [
+        {
+            type: 'category',
+            data: [' '],
+            axisPointer: {
+                type: 'shadow'
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            name: '平均情绪参数',
+            min: 0,
+            max: 1,
+            interval: 0.25,
+        },
+        {
+            type: 'value',
+            name: '平均情绪参数',
+            min: 0,
+            max: 1,
+            interval:0.25,
+        }
+    ],
+    series: [
+        {
+            name: 'music1',
+            type: 'bar',
+            data: a
+        },
+        {
+            name: "music2",
+            type: 'bar',
+            data: b
+        },
+        {
+            name: '平均情绪',
+            type: 'line',
+            yAxisIndex: 1,
+            data: d
+        }
+    ]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+});
+
+       </script>
+   </body>
+</html>

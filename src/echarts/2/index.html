@@ -1,0 +1,95 @@
+<!DOCTYPE html> 
+<html style='height: 100%'>    
+<head>        
+    <meta charset='utf-8'>    
+</head>    
+<body style='height: 100%; margin: 0'>        
+    <div id='container' style='height: 100%'></div>        
+    <script type='text/javascript' src='echarts.min.js'></script>        
+    <script type='text/javascript' src='echarts-gl.min.js'></script>        
+    <script type='text/javascript' src='ecStat.min.js'></script>        
+    <script type='text/javascript' src='dataTool.min.js'></script> 
+        <script src="d3.v3.min.js"></script>
+    <script type="text/javascript">
+d3.csv("comments.csv",function(data){
+    var music1=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var music2=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var time=['1604246400000', '1604332800000', '1604419200000', '1604505600000', '1604592000000', '1604678400000', '1604764800000', '1604851200000', '1604937600000', '1605024000000', '1605110400000', '1605196800000', '1605283200000', '1605369600000', '1605456000000', '1605542400000', '1605628800000', '1605715200000', '1605801600000', '1605888000000', '1605974400000', '1606060800000', '1606147200000', '1606233600000', '1606320000000', '1606406400000', '1606492800000', '1606579200000', '1606665600000', '1606752000000', '1606838400000', '1606924800000'];
+    for (var i = 0; i < data.length; i++) {
+        for (var j = 0; j < 31; j++) {
+            if(data[i]["time"]<time[j+1] && data[i]["time"]>time[j])
+                if(data[i]["music_id"] == data[0]["music_id"])
+                    music1[j]++;
+                else
+                    music2[j]++;
+        }
+        
+    }
+
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: '评论数月变化曲线（2020/11/2~2020/12/2）'
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data: ['music1', 'music2']
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            type: 'category',
+            boundaryGap: false,
+            data: ['11.2', '11.3', '11.4', '11.5', '11.6', '11.7', '11.8', '11.9', '11.10', '11.11', '11.12', '11.13', '11.14', '11.15', '11.16', '11.17', '11.18', '11.19', '11.20', '11.21', '11.22', '11.23', '11.24', '11.25', '11.26', '11.27', '11.28', '11.29', '11.30', '12.1', '12.2']
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            name: '评论数'
+        }
+    ],
+    series: [
+        {
+            name: 'music1',
+            type: 'line',
+            areaStyle: {},
+            data: music1
+        },
+        {
+            name: 'music2',
+            type: 'line',
+            areaStyle: {},
+            data: music2
+        }
+    ]
+};
+
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+});
+       </script>
+   </body>
+</html>
