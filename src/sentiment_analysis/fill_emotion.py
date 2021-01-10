@@ -11,10 +11,10 @@ def fill_emotion():
     doc = pd.read_csv(comments_csv_path)
     doc = doc.copy()
     row_num, col_num = doc.shape
-    for i in range(row_num):
+    for i in range(10000):
         text = doc['content'].loc[i]
         doc['emotion'].loc[i] = int(my_senta.predict(text)[0][1] == "positive")
-
+        print(i)
     doc.to_csv(comments_csv_path, index=False, encoding='utf-8')
 
 
