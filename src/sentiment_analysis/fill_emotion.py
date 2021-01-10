@@ -13,7 +13,7 @@ def fill_emotion():
     row_num, col_num = doc.shape
     for i in range(row_num):
         text = doc['content'].loc[i]
-        doc['emotion'].loc[i] = my_senta.predict(text)[0][1]
+        doc['emotion'].loc[i] = int(my_senta.predict(text)[0][1] == "positive")
 
     doc.to_csv(comments_csv_path, index=False, encoding='utf-8')
 
