@@ -1,3 +1,4 @@
+import time
 import json
 import base64
 from Crypto.Cipher import AES
@@ -5,6 +6,7 @@ import requests
 from pathlib import Path
 
 from conf import comments_root
+from toplist import get_toplist_ids
 
 
 headers = {
@@ -65,5 +67,12 @@ def get_comments(music_id, page_num):
 
 
 if __name__=='__main__':
-    get_comments(music_id=36229053, page_num=10)
+    toplist_ids = get_toplist_ids()
+    toplist_ids = toplist_ids[90:100]
+    print(toplist_ids)
+
+    for c, music_id in enumerate(toplist_ids):
+        print(f"{c}/{len(toplist_ids)}:", music_id)
+        time.sleep(5)
+        get_comments(music_id=music_id, page_num=10)
 
