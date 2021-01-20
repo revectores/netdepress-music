@@ -14,15 +14,22 @@ This project aims to analyse the factors that influence the emotion of comments 
 
 (1) Table `music`
 
-| Column Name |   Type    |                 Description                  |
-| :---------: | :-------: | :------------------------------------------: |
-|     id      |    int    |                                              |
-|    name     |    str    |                                              |
-|    types    | list[str] |                 type labels                  |
-|    words    |    str    |  words of song, sentences are split by `\n`  |
-|   emotion   |  double   | emotion value of the words of song in [0, 1] |
+| Column Name |   Type   |                 Description                  |
+| :---------: | :------: | :------------------------------------------: |
+|     id      |   int    |                                              |
+|    name     |   str    |                                              |
+|    types    | list[id] |                   type ids                   |
+|    words    |   str    |  words of song, sentences are split by `\n`  |
+|   emotion   |  double  | emotion value of the words of song in [0, 1] |
 
-(2) Table `comment`
+(2) Table `music_type`
+
+| Column Name | Type | Description |
+| :---------: | :--: | :---------: |
+|     id      | int  |             |
+|    name     | str  |             |
+
+(3) Table `comment`
 
 | Column Name |  Type  |              Description               |
 | :---------: | :----: | :------------------------------------: |
