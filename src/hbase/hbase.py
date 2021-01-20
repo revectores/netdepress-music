@@ -51,7 +51,7 @@ def scan() -> list[dict]:
     comments_table = connect.table('comments')
     comments = []
     for key, comment in comments_table.scan():
-            comments.append({strip_cf(key.decode('utf-8')): value.decode('utf-8') for key, value in comment.items()})
+        comments.append({strip_cf(key.decode('utf-8')): value.decode('utf-8') for key, value in comment.items()})
         # print(k, v[b'cf:content'].decode('utf-8'))
     return comments
 
